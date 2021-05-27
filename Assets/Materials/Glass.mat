@@ -68,7 +68,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _InteriorCubemap_AB67448D_Cubemap48089D21_1636074975:
-        m_Texture: {fileID: 8900000, guid: 9d6d2270ec0ddd741a74686515fee1b6, type: 2}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _IridescenceMaskMap:
