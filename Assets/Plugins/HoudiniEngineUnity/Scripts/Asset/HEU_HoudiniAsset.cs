@@ -709,7 +709,7 @@ namespace HoudiniEngineUnity
 	/// <param name="bAsync">Cook asynchronously or block until cooking is done.</param>
 	/// <param name="bSkipCookCheck">If true, will force cook even if cooking is disabled.</param>
 	/// <param name="bUploadParameters">If true, will upload parameter values before cooking.</param>
-	public void RequestCook(bool bCheckParametersChanged, bool bAsync, bool bSkipCookCheck, bool bUploadParameters)
+	public void RequestCook(bool bCheckParametersChanged, bool bAsync, bool bSkipCookCheck, bool bUploadParameters, bool forceUploadInputs = false)
 	{
 #if HOUDINIENGINEUNITY_ENABLED
 	    //Debug.Log(HEU_Defines.HEU_NAME + ": Requesting Cook");
@@ -741,7 +741,7 @@ namespace HoudiniEngineUnity
 		{
 		    RecookBlocking(bCheckParametersChanged, bSkipCookCheck, 
 			bUploadParameters, bUploadParameterPreset: false, 
-			bForceUploadInputs: false, bCookingSessionSync: false);
+			bForceUploadInputs: forceUploadInputs, bCookingSessionSync: false);
 		}
 		else
 		{
