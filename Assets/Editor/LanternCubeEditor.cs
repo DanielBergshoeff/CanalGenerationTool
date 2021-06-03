@@ -6,7 +6,7 @@ using UnityEditor;
 [CustomEditor(typeof(LanternCube))]
 public class LanternCubeEditor : GeneratorCubeEditor
 {
-    private new void OnSceneGUI() {
+    private void OnSceneGUI() {
         LanternCube lc = target as LanternCube;
 
         if (lc == null || lc.gameObject == null)

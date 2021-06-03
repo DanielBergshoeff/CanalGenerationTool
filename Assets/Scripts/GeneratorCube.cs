@@ -3,33 +3,35 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class GeneratorCube : MonoBehaviour
+public abstract class GeneratorCube<T> : MonoBehaviour where T: Component
 {
-    protected static GeneratorCube[] currentlyCooking;
+    protected static Transform[] currentlyCooking;
     protected static bool cookNow = false;
 
 
     protected static HEU_HoudiniAsset MyHoudiniAsset;
     protected static HEU_Parameters MyParameters;
 
-    protected abstract void CheckHoudiniAsset();
+    protected void CheckHoudiniAsset() {
+        MyHoudiniAsset = FindObjectOfType<T>().GetComponent<HEU_HoudiniAssetRoot>()._houdiniAsset;
+    }
     public abstract void ConvertAllCubes();
 
     public void ConvertThis() {
-        currentlyCooking = new GeneratorCube[1];
-        currentlyCooking[0] = this;
+        currentlyCooking = new Transform[1];
+        currentlyCooking[0] = transform;
         ConvertCubes(currentlyCooking);
     }
 
-    public void ConvertCubes(GeneratorCube[] cubes) {
+    public virtual void ConvertCubes(Transform[] cubes) {
         CheckHoudiniAsset();
         SetNewInput(cubes);
     }
 
-    protected static void SetNewInput(GeneratorCube[] cubes) {
+    protected static void SetNewInput(Transform[] cubes) {
         MyHoudiniAsset.GetInputNodeByIndex(0).RemoveAllInputEntries();
-        foreach (GeneratorCube gc in cubes) {
-            MyHoudiniAsset.GetInputNodeByIndex(0).AddInputEntryAtEnd(gc.transform.GetChild(0).gameObject);
+        foreach (Transform t in cubes) {
+            MyHoudiniAsset.GetInputNodeByIndex(0).AddInputEntryAtEnd(t.GetChild(0).gameObject);
         }
 
         cookNow = true;
@@ -46,21 +48,7 @@ public abstract class GeneratorCube : MonoBehaviour
         cookNow = false;
 
         GameObject g = MyHoudiniAsset.BakeToNewStandalone();
-        /*
-        if(currentlyCooking.Length == 1) {
-            CubeInfo ci = g.AddComponent<CubeInfo>();
-            ci.Scale = currentlyCooking[0].transform.localScale;
-            ci.Position = currentlyCooking[0].transform.position;
-            ci.Rotation = currentlyCooking[0].transform.rotation;
-        }
-        else {
-            for (int i = 0; i < currentlyCooking.Length; i++) {
-                CubeInfo ci = g.transform.GetChild(i).gameObject.AddComponent<CubeInfo>();
-                ci.Scale = currentlyCooking[i].transform.localScale;
-                ci.Position = currentlyCooking[i].transform.position;
-                ci.Rotation = currentlyCooking[i].transform.rotation;
-            }
-        }*/
+
         HEU_SessionBase session = MyHoudiniAsset.GetAssetSession(true);
         MyHoudiniAsset.GetInputNodeByIndex(0).ResetInputNode(session);
         MyHoudiniAsset.RequestCook(true, false, false, true);

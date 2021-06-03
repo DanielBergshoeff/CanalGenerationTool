@@ -7,7 +7,7 @@ using UnityEditor;
 [CustomEditor(typeof(TableCube))]
 public class TableCubeEditor : GeneratorCubeEditor
 {
-    private new void OnSceneGUI() {
+    private void OnSceneGUI() {
         TableCube tc = target as TableCube;
 
         if (tc == null || tc.gameObject == null)
