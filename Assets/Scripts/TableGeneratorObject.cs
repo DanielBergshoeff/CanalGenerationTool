@@ -1,6 +1,7 @@
 ﻿using HoudiniEngineUnity;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 [ExecuteInEditMode]
@@ -23,6 +24,9 @@ public class TableGeneratorObject : MonoBehaviour
             return;
 
         g.transform.parent = TableParent;
+        foreach(MeshFilter mf in g.GetComponentsInChildren<MeshFilter>()) {
+            Unwrapping.GenerateSecondaryUVSet(mf.sharedMesh);
+        }
     }
 
     public void TablesBaked(HEU_HoudiniAsset h, bool b, List<GameObject> l) {

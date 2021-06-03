@@ -36,11 +36,17 @@ public class LanternGeneratorObject : MonoBehaviour
                     g.transform.GetChild(i).GetComponent<MeshRenderer>().sharedMaterial = LitLanternMat;
                 }
             }
+
+            foreach (MeshFilter mf in g.GetComponentsInChildren<MeshFilter>()) {
+                Unwrapping.GenerateSecondaryUVSet(mf.sharedMesh);
+            }
         }
         else {
             if (g.transform.GetComponent<MeshRenderer>().sharedMaterial == null) {
                 g.transform.GetComponent<MeshRenderer>().sharedMaterial = LitLanternMat;
             }
+
+            Unwrapping.GenerateSecondaryUVSet(g.GetComponent<MeshFilter>().sharedMesh);
         }
     }
 
