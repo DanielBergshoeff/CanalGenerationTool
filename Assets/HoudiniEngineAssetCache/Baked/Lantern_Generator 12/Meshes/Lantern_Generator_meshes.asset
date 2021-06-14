@@ -179,7 +179,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: groupnr_1_1_mesh(Clone)
+  m_Name: Lantern_Generator_meshes
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
