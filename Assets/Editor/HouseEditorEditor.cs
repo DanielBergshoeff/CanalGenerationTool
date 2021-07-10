@@ -243,6 +243,9 @@ public class HouseEditorEditor : Editor
         }
     }
 
+    /// <summary>
+    /// Draws buttons using the xPos as middle point
+    /// </summary>
     private Rect[] DrawButtons(float xPos, float yPos, float width, float height, float distance, params string[] buttons) {
         Rect[] r = new Rect[buttons.Length];
 
